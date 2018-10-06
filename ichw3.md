@@ -86,4 +86,47 @@ Cache和主存的结构基本相同，均含有数据及地址，但Cache中还�
 
 在了解了三种基本的映射方式之后，我们就可以理解Cache的具体工作过程了。如下图：
 
-![image text]
+![image text](https://github.com/TimGinobili/ichw/blob/master/4.jpg)
+
+简而言之，首先CPU对Cache发起访问，通过上述的映射机制来判断是否命中。
+
+若命中，则直接从Cache读取数据，若未命中则需要从主存中调取数据到Cache中。
+
+而需要特别注意，当需要调取数据到Cache中时，需要先判断Cache中是否还有空间。
+
+若有，则直接调取；若没有，则调用Cache替换策略，将Cache中的一部分数据调出以腾出空间，再继续调取。
+
+其中，替换策略的算法主要如下：
+（1）传统替换算法及其直接演化，其代表算法有 ：
+
+①LRU（ Least Recently Used）算法：将最近最少使用的内容替换出Cache ；
+
+②LFU（ Lease Frequently Used）算法：将访问次数最少的内容替换出Cache；
+
+③如果Cache中所有内容都是同一天被缓存的，则将最大的文档替换出Cache，否则按LRU算法进行替换 。
+
+④FIFO( First In First Out)：遵循先入先出原则，若当前Cache被填满，则替换最早进入Cache的那个。
+
+（2）基于缓存内容关键特征的替换算法，其代表算法有：
+
+①Size替换算法：将最大的内容替换出Cache；
+
+②LRU— MIN替换算法：该算法力图使被替换的文档个数最少。设待缓存文档的大小为S，对Cache中缓存的大小至少是S的文档，根据LRU算法进行替换；如果没有大小至少为S的对象，则从大小至少为S/2的文档中按照LRU算法进行替换；
+
+③LRU—Threshold替换算法：和LRU算法一致，只是大小超过一定阈值的文档不能被缓存；
+
+④Lowest Lacency First替换算法：将访问延迟最小的文档替换出Cache。
+
+（3）基于代价的替换算法，该类算法使用一个代价函数对Cache中的对象进行评估，最后根据代价值的大小决定替换对象。其代表算法有：
+
+①Hybrid算法：算法对Cache中的每一个对象赋予一个效用函数，将效用最小的对象替换出Cache；
+
+②Lowest Relative Value算法：将效用值最低的对象替换出Cache；
+
+③Least Normalized Cost Replacement（LCNR）算法：该算法使用一个关于文档访问频次、传输时间和大小的推理函数来确定替换文档；
+
+④Bolot等人 提出了一种基于文档传输时间代价、大小、和上次访问时间的权重推理函数来确定文档替换；
+
+⑤Size—Adjust LRU（SLRU）算法：对缓存的对象按代价与大小的比率进行排序，并选取比率最小的对象进行替换。
+
+至此便是Cache的工作流程，由于其速度快且容量大于寄存器，Cache大幅提升了计算机的工作效率，意义非凡。
