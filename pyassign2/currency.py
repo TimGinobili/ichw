@@ -108,6 +108,7 @@ def test_items_input():
             return '货币数目非法，请确认货币数目为数字。'
         else:
             return '输入合法。'
+
 #测试所有函数
 def test_All():
     test_before_space()
