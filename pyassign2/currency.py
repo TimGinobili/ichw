@@ -6,11 +6,12 @@ __pkuid__  = "1800011701"
 __email__  = "1800011701@pku.edu.cn"
 """
 
+#模块1：调用和设置合法输入列表
 #调用URL和json库
 from urllib.request import urlopen
 import json
 
-#合法输入货币列表
+#合法输入货币列表，检测输入货币种类是否合法
 list = ['AED', 'AFN', 'ALL', 'AMD', 'ANG', 'AOA', 'ARS', 'AUD', 'AWG', 'AZN',
         'BAM', 'BBD', 'BDT', 'BGN', 'BHD', 'BIF', 'BMD', 'BND', 'BOB', 'BRL',
         'BSD', 'BTC', 'BTN', 'BWP', 'BYR', 'BZD', 'CAD', 'CDF', 'CHF', 'CLF',
@@ -30,6 +31,7 @@ list = ['AED', 'AFN', 'ALL', 'AMD', 'ANG', 'AOA', 'ARS', 'AUD', 'AWG', 'AZN',
         'XCD', 'XDR', 'XOF', 'XPD', 'XPF', 'XPT', 'YER', 'ZAR', 'ZMK', 'ZMW', 
         'ZWL']
 
+#模块2：定义函数
 #分解字符串函数：取出一给定字符串第一个空格前的部分
 def before_space(str):
     l = str.split()
@@ -65,7 +67,7 @@ def items_input():
     currency_to = input('请输入目标货币:')
     amount_from = input('请输入源货币数目:')
 
-#测试函数部分:
+#模块3：设置测试函数
 #字符串分解测试函数
 def test_before_space():
     assert ('2.5' == before_space('2.5 USD'))
@@ -75,31 +77,17 @@ def test_before_space():
 
 #URL转化测试函数
 def test_turn_dict():
-    assert(
-        {
-            'from': '2.5 United States Dollars', 'to': '2.1589225 Euros', 'success': True, 'error': ''
-        } == turn_dict(
-            'http://cs1110.cs.cornell.edu/2016fa/a1server.php?from='
-        + 'USD' + '&to=' + 'EUR' + '&amt=' + '2.5'
-            )
-    )
-    assert (
-            {
-                'from': '3 United Arab Emirates Dirhams', 'to': '1.3818380458036 Bulgarian Levs', 'success': True,
-                'error': ''
-            } == turn_dict(
-              'http://cs1110.cs.cornell.edu/2016fa/a1server.php?from='
-              + 'AED' + '&to=' + 'BGN' + '&amt=' + '3'
-            )
-             )
-    assert (
-            {
-                'from': '4 Jordanian Dinar', 'to': '7.7927403009982 Libyan Dinar', 'success': True, 'error': ''
-            } == turn_dict(
-             'http://cs1110.cs.cornell.edu/2016fa/a1server.php?from='
-             + 'JOD' + '&to=' + 'LYD' + '&amt=' + '4'
-            )
-             )
+    test1 = {'from': '2.5 United States Dollars', 'to': '2.1589225 Euros', 'success': True, 'error': ''}
+    test11 = 'http://cs1110.cs.cornell.edu/2016fa/a1server.php?from='+ 'USD' + '&to=' + 'EUR' + '&amt=' + '2.5'
+    test2 = {
+        'from': '3 United Arab Emirates Dirhams', 'to': '1.3818380458036 Bulgarian Levs', 'success': True,'error': ''
+    }
+    test22 = 'http://cs1110.cs.cornell.edu/2016fa/a1server.php?from='+ 'AED' + '&to=' + 'BGN' + '&amt=' + '3'
+    test3 = {'from': '4 Jordanian Dinar', 'to': '7.7927403009982 Libyan Dinar', 'success': True, 'error': ''}
+    test33 = 'http://cs1110.cs.cornell.edu/2016fa/a1server.php?from='+ 'JOD' + '&to=' + 'LYD' + '&amt=' + '4'
+    assert (test1 == turn_dict(test11))
+    assert (test2 == turn_dict(test22))
+    assert (test3 == turn_dict(test33))
 
 #exchange测试函数
 def test_exchange():
@@ -126,7 +114,7 @@ def test_All():
     test_turn_dict()
     test_exchange()
     print("All tests passed")
-
+        
 def main():
     test_All()
     items_input()
