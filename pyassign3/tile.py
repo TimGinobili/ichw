@@ -86,14 +86,21 @@ def fill(wall, m, n, a, b):
     if wall == [1] * len(wall):
         return[[]]
     ans = []
-    for direc in 0, 1:
-        if not already(wall, m, n, a, b, direc):
-            newwall = copy.deepcopy(wall)
-            oneans = tile(newwall, m, n, a, b, direc)
-            parts = fill(newwall, m, n, a, b)
-            for part in parts:
-                part.append(oneans)
-            ans.extend(parts)
+    if a == b and m % a == 0 and n % a == 0:
+        oneans = tile(wall, m, n, a, b, 0)
+        parts = fill(wall, m, n, a, b)
+        for part in parts:
+            part.append(oneans)
+        ans.extend(parts)
+    else:
+        for direc in 0, 1:
+            if not already(wall, m, n, a, b, direc):
+                newwall = copy.deepcopy(wall)
+                oneans = tile(newwall, m, n, a, b, direc)
+                parts = fill(newwall, m, n, a, b)
+                for part in parts:
+                    part.append(oneans)
+                ans.extend(parts)
     return ans
 
 #可视化函数
