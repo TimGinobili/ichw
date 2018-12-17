@@ -111,16 +111,23 @@ def visualization(m, n, onesol):
     :param n: the width of the wall.
     :param onesol: the solution which the user choose to fill the wall.
     """
+    wn = turtle.Screen()
+    wn.bgcolor('black')
+
     w = turtle.Turtle()
     w.speed(0)
     w.pensize(5)
+    w.color('white')
+
     t = turtle.Turtle()
-    t.color("blue")
+    t.color('darkblue')
     t.speed(0)
-    t.pensize(3)
+    t.pensize(5)
+
     p = turtle.Turtle()
     p.speed(0)
     p.pensize(1)
+    p.color('white')
 
     x = (40000 * m / n) ** 0.5
     y = (40000 * n / m) ** 0.5
